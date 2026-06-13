@@ -53,7 +53,7 @@ jobs:
           path: .
 
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.3
 
       - name: Run Dockle
         uses: goodwithtech/dockle-action@v0.4.15
