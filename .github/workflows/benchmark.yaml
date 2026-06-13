@@ -63,14 +63,14 @@ jobs:
           failure-threshold: 'FATAL'
           exit-code: '1'
           report-format: 'json'
-          output: 'dockle-report.txt'
+          path: 'dockle-report.json'
 
       - name: Publish Dockle Summary
         if: always() # 🚨 Executa mesmo se o Dockle falhar e travar o CI
         run: |
-          echo "## 🐳 Relatório CIS Benchmark (Dockle)" >> $GITHUB_STEP_SUMMARY
+          echo "## 🐳 CIS Benchmark (Dockle)" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
-          cat dockle-report.txt >> $GITHUB_STEP_SUMMARY
+          cat ./dockle-report.txt >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
 
