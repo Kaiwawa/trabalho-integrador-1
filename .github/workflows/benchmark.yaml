@@ -59,7 +59,7 @@ jobs:
       - name: Run Dockle
         uses: goodwithtech/dockle-action@v0.4.15
         with:
-          image: 'trabalho-1:${{ env.IMAGE_TAG }}.tar'
+          image: 'trabalho-1:${{ env.IMAGE_TAG }}'
           exit-level: 'critical'
           exit-code: '1'
           format: 'json'
