@@ -52,13 +52,14 @@ jobs:
           name: imagem-trabalho-1-${{ env.IMAGE_TAG }}
           path: .
 
-      - name: Checkout Repository
-        uses: actions/checkout@v6.0.3
+      - name: Load Docker Image
+        run: |
+          docker load -i ./trabalho-1-${{ env.IMAGE_TAG }}.tar
 
       - name: Run Dockle
         uses: goodwithtech/dockle-action@v0.4.15
         with:
-          image: './trabalho-1-${{ env.IMAGE_TAG }}.tar'
+          image: 'trabalho-1:${{ env.IMAGE_TAG }}.tar'
           exit-level: 'critical'
           exit-code: '1'
           format: 'json'
