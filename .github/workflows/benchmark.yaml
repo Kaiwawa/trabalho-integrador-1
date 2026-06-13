@@ -60,9 +60,9 @@ jobs:
         uses: erzz/dockle-action@v1.4.1
         with:
           image: 'trabalho-1:${{ env.IMAGE_TAG }}'
-          exit-level: 'critical'
+          failure-threshold: 'critical'
           exit-code: '1'
-          format: 'json'
+          report-format: 'json'
 
 
   trivy:
