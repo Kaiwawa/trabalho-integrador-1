@@ -63,6 +63,15 @@ jobs:
           failure-threshold: 'FATAL'
           exit-code: '1'
           report-format: 'json'
+          output: 'dockle-report.txt'
+
+      - name: Publish Dockle Summary
+        if: always() # 🚨 Executa mesmo se o Dockle falhar e travar o CI
+        run: |
+          echo "## 🐳 Relatório CIS Benchmark (Dockle)" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
+          cat dockle-report.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
 
   trivy:
@@ -79,12 +88,21 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           input: trabalho-1-${{ env.IMAGE_TAG }}.tar
-          format: 'json'
+          format: 'table'
+          output: 'trivy-report.txt'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           scanners: 'vuln,secret,misconfig'
           severity: 'CRITICAL'
+
+      - name: Publish Trivy Summary
+        if: always() # 🚨 Crucial para conseguir ver quais CVEs travaram o seu CI
+        run: |
+          echo "## 🛡️ Relatório de Vulnerabilidades e Segredos (Trivy)" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
+          cat trivy-report.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
 #  cosign:
 #    runs-on: ubuntu-latest
