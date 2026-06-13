@@ -44,6 +44,21 @@ jobs:
           path: ./trabalho-1-${{ env.IMAGE_TAG }}.tar
           retention-days: 1
 
+      - name: Generate SBOM CycloneDX
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          input: ./trabalho-1-${{ env.IMAGE_TAG }}.tar
+          format: 'cyclonedx'
+          output: 'sbom.json'
+
+      - name: Publish Dockle Summary
+        if: always() # 🚨 Executa mesmo se o Dockle falhar e travar o CI
+        run: |
+          echo "## 🐳 SBOM CycloneDX" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
+          cat ./sbom.json >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
   dockle:
     runs-on: ubuntu-latest
     needs: build
