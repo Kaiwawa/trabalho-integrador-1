@@ -82,5 +82,11 @@ jobs:
           format: 'json'
           exit-code: '1'
           ignore-unfixed: true
-          vuln-type: 'os,library'
+          vuln-type: 'os,library,vuln,secret'
           severity: 'CRITICAL'
+
+  cosign:
+    runs-on: ubuntu-latest
+    needs: [trivy, dockle]
+    steps:
+
