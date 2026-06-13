@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "Instalação concluída"
 
 # Falha Trivy (Secrets): Chave de API privada "morta" exposta diretamente no código fonte
+ENV AWS_SECRET_ACCESS_KEY="AKIAIOSFODNN7EXAMPLE/FAKEKEY/DONOTUSE"
+ENV APP_PASSWORD="SuperSenhaSecreta123!"
 
 # Copia um script fictício para o container
 COPY . /app
