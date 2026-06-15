@@ -83,7 +83,7 @@ jobs:
           path: 'dockle-report.json'
 
       - name: Publish Dockle Summary
-        if: always() # 🚨 Executa mesmo se o Dockle falhar e travar o CI
+        if: always()
         run: |
           echo "## 🐳 CIS Benchmark (Dockle)" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
@@ -114,7 +114,7 @@ jobs:
           severity: 'CRITICAL'
 
       - name: Publish Trivy Summary
-        if: always() # 🚨 Crucial para conseguir ver quais CVEs travaram o seu CI
+        if: always()
         run: |
           echo "## 🛡️ Relatório de Vulnerabilidades e Segredos (Trivy)" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
